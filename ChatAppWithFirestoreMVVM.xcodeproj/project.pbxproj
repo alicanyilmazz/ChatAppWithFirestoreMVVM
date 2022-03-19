@@ -17,6 +17,8 @@
 		5A25898027E24DC0001B625B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A25897F27E24DC0001B625B /* LoginController.swift */; };
 		5A25898227E24DE8001B625B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A25898127E24DE8001B625B /* RegistrationController.swift */; };
 		5A25898527E255BA001B625B /* AnchorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A25898427E255BA001B625B /* AnchorExtension.swift */; };
+		5ABB21EE27E5F21D00C3FB04 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABB21ED27E5F21D00C3FB04 /* CustomTextField.swift */; };
+		5ABB627D27E4ABD200932166 /* InputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABB627C27E4ABD200932166 /* InputContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		5A25897F27E24DC0001B625B /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		5A25898127E24DE8001B625B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		5A25898427E255BA001B625B /* AnchorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnchorExtension.swift; sourceTree = "<group>"; };
+		5ABB21ED27E5F21D00C3FB04 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		5ABB627C27E4ABD200932166 /* InputContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 		5A25897A27E23661001B625B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5ABB627C27E4ABD200932166 /* InputContainerView.swift */,
+				5ABB21ED27E5F21D00C3FB04 /* CustomTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,12 +221,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A25896627E2358A001B625B /* ViewController.swift in Sources */,
+				5ABB627D27E4ABD200932166 /* InputContainerView.swift in Sources */,
 				5A25896227E2358A001B625B /* AppDelegate.swift in Sources */,
 				5A25897D27E239BE001B625B /* ConversationsController.swift in Sources */,
 				5A25896427E2358A001B625B /* SceneDelegate.swift in Sources */,
 				5A25898227E24DE8001B625B /* RegistrationController.swift in Sources */,
 				5A25898027E24DC0001B625B /* LoginController.swift in Sources */,
 				5A25898527E255BA001B625B /* AnchorExtension.swift in Sources */,
+				5ABB21EE27E5F21D00C3FB04 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
