@@ -20,59 +20,16 @@ class LoginController : UIViewController{
     }()
     
     private lazy var emailContainerView : UIView = {
-        let containerView = UIView()
-        containerView.backgroundColor = UIColor(red: 38/255, green: 42/255, blue: 52/255, alpha: 1)
-        containerView.setHeight(height: 50)
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "envelope")
-        imageView.tintColor = UIColor(red: 78/255, green: 80/255, blue: 88/255, alpha: 1)
-        containerView.addSubview(imageView)
-        imageView.centerY(inView: containerView)
-        imageView.anchor(left: containerView.leftAnchor,paddingLeft: 8)
-        imageView.setDimensions(height: 22, width: 26)
-        
-        containerView.addSubview(emailTextField)
-        emailTextField.centerY(inView: containerView)
-        emailTextField.anchor(left: imageView.rightAnchor,right: containerView.rightAnchor,paddingLeft: 8, paddingRight: 8)
-        
-        return containerView
+        return InputContainerView(textField: emailTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.emailInputContainerViewConfiguration)
     }()
     
-    private let emailTextField: UITextField = {
-       let textField = UITextField()
-       textField.attributedPlaceholder = NSAttributedString(string: "Email",attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 78/255, green: 80/255, blue: 88/255, alpha: 1)])
-       textField.textColor = .white
-       return textField
-    }()
+    private let emailTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.emailLoginTextField)
     
     private lazy var passwordContainerView : UIView = {
-       let containerView = UIView()
-        containerView.backgroundColor = UIColor(red: 38/255, green: 42/255, blue: 52/255, alpha: 1)
-        containerView.setHeight(height: 50)
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "lock")
-        imageView.tintColor = UIColor(red: 78/255, green: 80/255, blue: 88/255, alpha: 1)
-        containerView.addSubview(imageView)
-        imageView.centerY(inView: containerView)
-        imageView.anchor(left: containerView.leftAnchor,paddingLeft: 8)
-        imageView.setDimensions(height: 26, width: 26)
-        
-        containerView.addSubview(passwordTextField)
-        passwordTextField.centerY(inView: containerView)
-        passwordTextField.anchor(left: imageView.rightAnchor,right: containerView.rightAnchor,paddingLeft: 8, paddingRight: 8)
-        
-        return containerView
+        return InputContainerView(textField: passwordTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.passwordInputContainerViewConfiguration)
     }()
     
-    private let passwordTextField: UITextField = {
-       let textField = UITextField()
-       textField.attributedPlaceholder = NSAttributedString(string: "Password",attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 78/255, green: 80/255, blue: 88/255, alpha: 1)])
-       textField.textColor = .white
-       textField.isSecureTextEntry = true
-       return textField
-    }()
+    private let passwordTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.passwordLoginTextField)
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -85,11 +42,26 @@ class LoginController : UIViewController{
         return button
     }()
     
+    private let dontHaveAccountButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ",attributes: [.font : UIFont.systemFont(ofSize: 13),.foregroundColor: UIColor.white])
+        attributedTitle.append(NSAttributedString(string: "Sign Up",attributes: [.font: UIFont.boldSystemFont(ofSize: 13),.foregroundColor: UIColor.white]))
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    // MARK: Selectors
+    @objc func handleShowSignUp(){
+        let controller = RegistrationController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     // MARK: - Helpers
@@ -111,6 +83,9 @@ class LoginController : UIViewController{
         stack.spacing = 16
         view.addSubview(stack)
         stack.anchor(top: iconImage.bottomAnchor,left: view.leftAnchor,right: view.rightAnchor,paddingTop: 32,paddingLeft: 32,paddingRight: 32)
+        
+        view.addSubview(dontHaveAccountButton)
+        dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,right: view.rightAnchor, paddingLeft: 32,paddingBottom: 32, paddingRight: 32)
         
     }
     
