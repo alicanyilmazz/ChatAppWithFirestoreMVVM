@@ -45,9 +45,13 @@ class CustomTextFieldConfiguration{
         borderStyle = _borderStyle
     }
     
-   static let emailLoginTextField = CustomTextFieldConfiguration(_placeholder: "Email", _isSecureTextEntry: false, _fontSize: 14, _textColor: .white, _placeholderColor: UIColor(red: 78/255, green: 80/255, blue: 88/255, alpha: 1), _keyboardAppearance: .dark, _keyboardType: .default, _borderStyle: .none)
+    static let emailLoginTextField = CustomTextFieldConfiguration(_placeholder: "Email", _isSecureTextEntry: false, _fontSize: 14, _textColor: .white, _placeholderColor: .white, _keyboardAppearance: .dark, _keyboardType: .default, _borderStyle: .none)
     
-   static let passwordLoginTextField = CustomTextFieldConfiguration(_placeholder: "Password", _isSecureTextEntry: true, _fontSize: 14, _textColor: .white, _placeholderColor: UIColor(red: 78/255, green: 80/255, blue: 88/255, alpha: 1), _keyboardAppearance: .dark, _keyboardType: .default, _borderStyle: .none)
+    static let passwordLoginTextField = CustomTextFieldConfiguration(_placeholder: "Password", _isSecureTextEntry: true, _fontSize: 14, _textColor: .white, _placeholderColor: .white, _keyboardAppearance: .dark, _keyboardType: .default, _borderStyle: .none)
+    
+    static let fullnameLoginTextField = CustomTextFieldConfiguration(_placeholder: "Full Name", _isSecureTextEntry: false, _fontSize: 14, _textColor: .white, _placeholderColor: .white, _keyboardAppearance: .dark, _keyboardType: .default, _borderStyle: .none)
+    
+    static let usernameLoginTextField = CustomTextFieldConfiguration(_placeholder: "Username", _isSecureTextEntry: false, _fontSize: 14, _textColor: .white, _placeholderColor: .white, _keyboardAppearance: .dark, _keyboardType: .default, _borderStyle: .none)
 }
 
 
