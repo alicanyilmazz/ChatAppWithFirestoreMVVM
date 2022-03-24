@@ -12,10 +12,9 @@ class RegistrationController : UIViewController{
     
     // MARK: - Properties
         
-    private let plusPhotoButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
-        button.tintColor = .white
+    private let plusPhotoButton: CustomIconButton = {
+        let configuration = CustomIconButtonConfiguration(image: #imageLiteral(resourceName: "plus_photo"))
+        let button = CustomIconButton(iconButtonConfiguration: configuration)
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
         return button
     }()
@@ -37,25 +36,18 @@ class RegistrationController : UIViewController{
         return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.registerSection.rawValue].components[ComponentSectionType.RegisterComponentType.password.rawValue])
     }()
     
-    private let registerButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Sign Up", for: .normal)
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.tintColor = .white
-        button.backgroundColor = UIColor(red: 84/255, green: 104/255, blue: 255/255, alpha: 1)
-        button.setHeight(height: 50)
+    private let registerButton : CustomStandartButton = {
+       let configuration = CustomStandartButtonConfiguration(title: "Sign Up")
+       let button = CustomStandartButton(standartButtonConfiguration: configuration)
         button.addTarget(self, action: #selector(handleAuthentication), for: .touchUpInside)
-        return button
+       return button
     }()
     
-    private let alreadyAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Already have an account?  ",attributes: [.font : UIFont.systemFont(ofSize: 13),.foregroundColor: UIColor.white])
-        attributedTitle.append(NSAttributedString(string: "Sign In",attributes: [.font: UIFont.boldSystemFont(ofSize: 13),.foregroundColor: UIColor.white]))
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.addTarget(self, action: #selector(handleShowSignIn), for: .touchUpInside)
-        return button
+    private let alreadyAccountButton: CustomTextButton = {
+       let configuration = CustomTextButtonConfiguration(firstTitle: "Already have an account? ", secondTitle: "Sign In")
+       let button = CustomTextButton(textButtonConfiguration: configuration)
+       button.addTarget(self, action: #selector(handleShowSignIn), for: .touchUpInside)
+       return button
     }()
     
     // MARK: - Lifecycle
