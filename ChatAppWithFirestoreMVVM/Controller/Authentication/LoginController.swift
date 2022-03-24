@@ -11,7 +11,6 @@ import UIKit
 class LoginController : UIViewController{
     
     // MARK: - Properties
-    
     private let iconImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "mans")
@@ -19,17 +18,13 @@ class LoginController : UIViewController{
         return imageView
     }()
     
-    private lazy var emailContainerView : UIView = {
-        return InputContainerView(textField: emailTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.emailInputContainerViewConfiguration)
+    private lazy var emailContainerView : InputContainerView = {
+        return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.loginSection.rawValue].components[ComponentSectionType.LoginComponentType.email.rawValue])
     }()
     
-    private let emailTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.emailLoginTextField)
-    
-    private lazy var passwordContainerView : UIView = {
-        return InputContainerView(textField: passwordTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.passwordInputContainerViewConfiguration)
+    private lazy var passwordContainerView : InputContainerView = {
+        return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.loginSection.rawValue].components[ComponentSectionType.LoginComponentType.password.rawValue])
     }()
-    
-    private let passwordTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.passwordLoginTextField)
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -39,6 +34,7 @@ class LoginController : UIViewController{
         button.tintColor = .white
         button.backgroundColor = UIColor(red: 84/255, green: 104/255, blue: 255/255, alpha: 1)
         button.setHeight(height: 50)
+        button.addTarget(self, action: #selector(handleAuthentication), for: .touchUpInside)
         return button
     }()
     
@@ -64,6 +60,18 @@ class LoginController : UIViewController{
         navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc func handleAuthentication(){
+        let result = ComponentBuilder.shared.validate(componentSectionType: ComponentSectionType.loginSection.rawValue)
+        if result{
+           print("Authenticated")
+           let data = ComponentBuilder.shared.getData(componentSectionType: ComponentSectionType.loginSection.rawValue)
+           let loginViewModel : LoginViewModel = LoginViewModel(email: data[0], password: data[1])
+           // Send Request to API
+        }else{
+            print("Not Authenticated")
+        }
+    }
+    
     // MARK: - Helpers
     
     func configureUI(){
@@ -71,7 +79,6 @@ class LoginController : UIViewController{
         navigationController?.navigationBar.barStyle = .black
         
         configureGradientLayer()
-        //view.backgroundColor = UIColor(red: 7/255, green: 8/255, blue: 10/255, alpha: 1)
         
         view.addSubview(iconImage)
         iconImage.centerX(inView: view)
@@ -80,7 +87,7 @@ class LoginController : UIViewController{
         
         let stack = UIStackView(arrangedSubviews: [emailContainerView,passwordContainerView,loginButton])
         stack.axis = .vertical
-        stack.spacing = 16
+        stack.spacing = 10
         view.addSubview(stack)
         stack.anchor(top: iconImage.bottomAnchor,left: view.leftAnchor,right: view.rightAnchor,paddingTop: 32,paddingLeft: 32,paddingRight: 32)
         
@@ -89,5 +96,3 @@ class LoginController : UIViewController{
     }
 }
  
-
-
