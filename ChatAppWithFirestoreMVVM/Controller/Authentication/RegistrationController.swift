@@ -11,7 +11,7 @@ import UIKit
 class RegistrationController : UIViewController{
     
     // MARK: - Properties
-    
+        
     private let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
@@ -20,29 +20,22 @@ class RegistrationController : UIViewController{
         return button
     }()
     
-    private lazy var emailContainerView : UIView = {
-        return InputContainerView(textField: emailTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.emailInputContainerViewConfiguration)
+    private lazy var emailContainerView : InputContainerView = {
+        return InputContainerView(formComponent:
+            ComponentBuilder.shared.content[ComponentSectionType.registerSection.rawValue].components[ComponentSectionType.RegisterComponentType.email.rawValue])
     }()
     
-    private let emailTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.emailLoginTextField)
-    
-    private lazy var fullnameContainerView : UIView = {
-        return InputContainerView(textField: fullnameTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.fullnameInputContainerViewConfiguration)
+    private lazy var fullnameContainerView : InputContainerView = {
+        return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.registerSection.rawValue].components[ComponentSectionType.RegisterComponentType.fullname.rawValue])
     }()
     
-    private let fullnameTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.fullnameLoginTextField)
-    
-    private lazy var usernameContainerView : UIView = {
-        return InputContainerView(textField: usernameTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.usernameInputContainerViewConfiguration)
+    private lazy var usernameContainerView : InputContainerView = {
+        return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.registerSection.rawValue].components[ComponentSectionType.RegisterComponentType.username.rawValue])
     }()
     
-    private let usernameTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.usernameLoginTextField)
-    
-    private lazy var passwordContainerView : UIView = {
-        return InputContainerView(textField: passwordTextField, inputContainerViewConfiguration: InputContainerViewConfiguration.passwordInputContainerViewConfiguration)
+    private lazy var passwordContainerView : InputContainerView = {
+        return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.registerSection.rawValue].components[ComponentSectionType.RegisterComponentType.password.rawValue])
     }()
-    
-    private let passwordTextField: CustomTextField = CustomTextField(customTextFieldConfiguration: CustomTextFieldConfiguration.passwordLoginTextField)
     
     private let registerButton: UIButton = {
         let button = UIButton(type: .system)
@@ -52,6 +45,7 @@ class RegistrationController : UIViewController{
         button.tintColor = .white
         button.backgroundColor = UIColor(red: 84/255, green: 104/255, blue: 255/255, alpha: 1)
         button.setHeight(height: 50)
+        button.addTarget(self, action: #selector(handleAuthentication), for: .touchUpInside)
         return button
     }()
     
@@ -69,12 +63,24 @@ class RegistrationController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        
     }
     
     // MARK: - Selectors
     
     @objc func handleSelectPhoto(){
         print("selected")
+    }
+    
+    @objc func handleAuthentication(){
+        let result = ComponentBuilder.shared.validate(componentSectionType: ComponentSectionType.registerSection.rawValue)
+        if result{
+           let data = ComponentBuilder.shared.getData(componentSectionType: ComponentSectionType.registerSection.rawValue)
+           let registerViewModel : RegisterViewModel = RegisterViewModel(email: data[0], password: data[1],fullName: data[2],username: data[3])
+           // Send Request to API
+        }else{
+            print("Not Authenticated")
+        }
     }
     
     @objc func handleShowSignIn(){
