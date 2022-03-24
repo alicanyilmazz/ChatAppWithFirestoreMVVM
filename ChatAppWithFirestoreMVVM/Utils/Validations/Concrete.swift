@@ -16,8 +16,8 @@ protocol FormItem{
 
 protocol FormSectionItem{
     var id : UUID {get}
-    var items: [FormComponent] {get}
-    init(items: [FormComponent])
+    var components: [FormComponent] {get}
+    init(components: [FormComponent])
 }
 
 
@@ -32,8 +32,8 @@ enum ComponentSectionType : Int{
     
     enum RegisterComponentType : Int {
             case email = 0
-            case fullname = 1
-            case username = 2
-            case password = 3
+            case password = 1
+            case fullname = 2
+            case username = 3
     }
 }
