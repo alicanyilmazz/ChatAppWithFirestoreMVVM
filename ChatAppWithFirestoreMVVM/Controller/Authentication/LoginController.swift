@@ -11,11 +11,10 @@ import UIKit
 class LoginController : UIViewController{
     
     // MARK: - Properties
-    private let iconImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "mans")
-        imageView.tintColor = UIColor(red: 38/255, green: 42/255, blue: 52/255, alpha: 1)
-        return imageView
+    
+    private lazy var iconImage: BasicImageView = {
+       let configuration = BasicImageViewConfiguration(imageName: "mans", tintColor: UIColor(red: 38/255, green: 42/255, blue: 52/255, alpha: 1))
+       return BasicImageView(imageViewConfiguration: configuration)
     }()
     
     private lazy var emailContainerView : InputContainerView = {
@@ -26,25 +25,18 @@ class LoginController : UIViewController{
         return InputContainerView(formComponent: ComponentBuilder.shared.content[ComponentSectionType.loginSection.rawValue].components[ComponentSectionType.LoginComponentType.password.rawValue])
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Sign In", for: .normal)
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.tintColor = .white
-        button.backgroundColor = UIColor(red: 84/255, green: 104/255, blue: 255/255, alpha: 1)
-        button.setHeight(height: 50)
-        button.addTarget(self, action: #selector(handleAuthentication), for: .touchUpInside)
-        return button
+    private let loginButton : CustomStandartButton = {
+       let configuration = CustomStandartButtonConfiguration(title: "Sign In")
+       let button = CustomStandartButton(standartButtonConfiguration: configuration)
+       button.addTarget(self, action: #selector(handleAuthentication), for: .touchUpInside)
+       return button
     }()
     
-    private let dontHaveAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ",attributes: [.font : UIFont.systemFont(ofSize: 13),.foregroundColor: UIColor.white])
-        attributedTitle.append(NSAttributedString(string: "Sign Up",attributes: [.font: UIFont.boldSystemFont(ofSize: 13),.foregroundColor: UIColor.white]))
-        button.setAttributedTitle(attributedTitle, for: .normal)
+    private let dontHaveAccountButton: CustomTextButton = {
+       let configuration = CustomTextButtonConfiguration(firstTitle: "Don't have an account? ", secondTitle: "Sign Up")
+       let button = CustomTextButton(textButtonConfiguration: configuration)
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
-        return button
+       return button
     }()
     
     // MARK: - Lifecycle
@@ -55,6 +47,7 @@ class LoginController : UIViewController{
     }
     
     // MARK: Selectors
+    
     @objc func handleShowSignUp(){
         let controller = RegistrationController()
         navigationController?.pushViewController(controller, animated: true)
