@@ -75,6 +75,7 @@ private extension InputContainerView{
         let attributedPlaceholder = NSAttributedString(string: textFormComponent!.placeholderName,attributes: [NSAttributedString.Key.foregroundColor : textFormComponent!.placeHolderColor])
         textField.attributedPlaceholder = attributedPlaceholder
         textField.isSecureTextEntry = textFormComponent!.isSecureTextEntry
+        textField.delegate = self
     }
     
     @objc func textFieldChangesHandled(){
@@ -98,3 +99,9 @@ private extension InputContainerView{
     }
 }
 
+extension InputContainerView : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
