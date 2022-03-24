@@ -10,10 +10,10 @@ import UIKit
 
 final class FormSectionComponent : FormSectionItem, Hashable{
     let id: UUID = UUID()
-    var items: [FormComponent]
+    var components: [FormComponent]
     
-    required init(items: [FormComponent]){
-        self.items = items
+    required init(components: [FormComponent]){
+        self.components = components
     }
     
     func hash(into hasher: inout Hasher) {
@@ -49,7 +49,15 @@ class FormComponent: FormItem,Hashable{
 }
 
 final class TextFormComponent: FormComponent{
-    override init(sectionType: Int,componentType : Int,validations: [ValidationManager] = []) {
+    let leftIconImage: String
+    let placeholderName: String
+    let placeHolderColor: UIColor
+    let isSecureTextEntry: Bool
+    init(leftIconImage: String, placeholderName: String, placeHolderColor : UIColor, isSecureTextEntry: Bool, sectionType: Int,componentType : Int,validations: [ValidationManager] = []) {
+        self.leftIconImage = leftIconImage
+        self.placeholderName = placeholderName
+        self.placeHolderColor = placeHolderColor
+        self.isSecureTextEntry = isSecureTextEntry
         super.init(sectionType: sectionType, componentType: componentType,validations: validations)
     }
 }
@@ -65,3 +73,4 @@ final class ButtonFormItem: FormComponent{
         super.init(sectionType: sectionType, componentType: componentType)
     }
 }
+
