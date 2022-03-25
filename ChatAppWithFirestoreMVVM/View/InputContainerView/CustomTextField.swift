@@ -16,6 +16,7 @@ class CustomTextField: UITextField{
         borderStyle = custom.borderStyle
         font = UIFont.systemFont(ofSize: custom.fontSize)
         textColor = custom.textColor
+        textContentType = .oneTimeCode
     }
     
     required init?(coder: NSCoder) {
