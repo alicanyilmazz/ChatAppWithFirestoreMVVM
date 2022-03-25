@@ -7,17 +7,21 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class RegistrationController : UIViewController{
     
     // MARK: - Properties
+    
+    private var viewModel : RegisterViewModel = RegisterViewModel()
+    private var profileImage : UIImage?
         
     private let plusPhotoButton: CustomIconButton = {
         let configuration = CustomIconButtonConfiguration(image: #imageLiteral(resourceName: "plus_photo"))
         let button = CustomIconButton(iconButtonConfiguration: configuration)
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
         button.clipsToBounds = true
-        button.imageView?.clipsToBounds = true
+        button.imageView?.contentMode = .scaleAspectFill
         return button
     }()
     
@@ -72,8 +76,42 @@ class RegistrationController : UIViewController{
         let result = ComponentBuilder.shared.validate(componentSectionType: ComponentSectionType.registerSection.rawValue)
         if result{
            let data = ComponentBuilder.shared.getData(componentSectionType: ComponentSectionType.registerSection.rawValue)
-           let registerViewModel : RegisterViewModel = RegisterViewModel(email: data[0], password: data[1],fullName: data[2],username: data[3])
+            viewModel.email = data[0]
+            viewModel.password = data[1]
+            viewModel.fullName = data[2]
+            viewModel.username = data[3]
+           //let registerViewModel : RegisterViewModel = RegisterViewModel(email: data[0], password: data[1],fullName: data[2],username: data[3])
            // Send Request to API
+            guard let imageData = profileImage?.jpegData(compressionQuality: 0.4) else { return }
+            let filename = NSUUID().uuidString
+            let ref = Storage.storage().reference(withPath: "/profile_images/\(filename)")
+            ref.putData(imageData, metadata: nil) { meta, error in
+                if let error = error{
+                    print("DEBUG : Failed to upload image with error \(error.localizedDescription)")
+                    return
+                }
+                ref.downloadURL { url, error in
+                    guard let profileImageUrl = url?.absoluteString else { return }
+                    
+                    Auth.auth().createUser(withEmail: self.viewModel.email!, password: self.viewModel.password!) { result, error in
+                        if let error = error{
+                            print("DEBUG : Failed to create user with error \(error.localizedDescription)")
+                            return
+                        }
+                        guard let uid = result?.user.uid else { return }
+                        let data = ["email": self.viewModel.email,"fullname": self.viewModel.fullName,"profileImageUrl": profileImageUrl,"uid":uid,"username": self.viewModel.username] as [String : Any]
+                        
+                        Firestore.firestore().collection("users").document(uid).setData(data){ error in
+                            if let error = error{
+                                print("DEBUG : Failed to creating user with error \(error.localizedDescription)")
+                                return
+                            }
+                            print("DEBUG: User created...")
+                        }
+                    }
+                }
+            }
+            
         }else{
             print("Not Authenticated")
         }
@@ -109,6 +147,7 @@ class RegistrationController : UIViewController{
 extension RegistrationController : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
+        profileImage = image
         plusPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         plusPhotoButton.layer.borderColor = UIColor(white: 1, alpha: 0.7).cgColor
         plusPhotoButton.layer.borderWidth = 2.0
