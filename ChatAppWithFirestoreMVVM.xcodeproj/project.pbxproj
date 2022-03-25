@@ -20,6 +20,7 @@
 		5A4B386027ECB4AF0000FA7C /* CustomIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4B385F27ECB4AF0000FA7C /* CustomIconButton.swift */; };
 		5A5111B027EA4A100009E817 /* CustomStandartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5111AF27EA4A100009E817 /* CustomStandartButton.swift */; };
 		5A68682D27EDAA34003CC330 /* TrimExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68682C27EDAA34003CC330 /* TrimExtension.swift */; };
+		5A68682F27EDCC7F003CC330 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A68682E27EDCC7F003CC330 /* GoogleService-Info.plist */; };
 		5AAB9FA627EBAA000032CD13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A25896A27E2358B001B625B /* Assets.xcassets */; };
 		5AB3644627EB76BF00872674 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3644527EB76BF00872674 /* LoginViewModel.swift */; };
 		5AB3644827EB778F00872674 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3644727EB778F00872674 /* RegisterViewModel.swift */; };
@@ -67,6 +68,7 @@
 		5A4B385F27ECB4AF0000FA7C /* CustomIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIconButton.swift; sourceTree = "<group>"; };
 		5A5111AF27EA4A100009E817 /* CustomStandartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStandartButton.swift; sourceTree = "<group>"; };
 		5A68682C27EDAA34003CC330 /* TrimExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimExtension.swift; sourceTree = "<group>"; };
+		5A68682E27EDCC7F003CC330 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AB3644527EB76BF00872674 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		5AB3644727EB778F00872674 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		5ABB21ED27E5F21D00C3FB04 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				5A25896A27E2358B001B625B /* Assets.xcassets */,
 				5A25896C27E2358B001B625B /* LaunchScreen.storyboard */,
 				5A25896F27E2358B001B625B /* Info.plist */,
+				5A68682E27EDCC7F003CC330 /* GoogleService-Info.plist */,
 			);
 			path = ChatAppWithFirestoreMVVM;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AAB9FA627EBAA000032CD13 /* Assets.xcassets in Resources */,
+				5A68682F27EDCC7F003CC330 /* GoogleService-Info.plist in Resources */,
 				5A25896E27E2358B001B625B /* LaunchScreen.storyboard in Resources */,
 				5A25896927E2358A001B625B /* Main.storyboard in Resources */,
 			);
