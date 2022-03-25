@@ -80,7 +80,9 @@ private extension InputContainerView{
     
     @objc func textFieldChangesHandled(){
         guard let text = textField.text else {return}
-        ComponentBuilder.shared.update(val: text, componentSectionType: textFormComponent!.sectionType, componentType: textFormComponent!.componentType)
+        let safeText = text.trimming(spaces: .leadingAndTrailing)
+        let isLowercasedText = textField.isSecureTextEntry == true ? safeText : safeText.lowercased()
+        ComponentBuilder.shared.update(val: isLowercasedText, componentSectionType: textFormComponent!.sectionType, componentType: textFormComponent!.componentType)
         do {
             for validator in textFormComponent!.validations{
                 try validator.validate(text)
