@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import JGProgressHUD
+import JGProgressHUD
 
 extension UIView {
     func anchor(top: NSLayoutYAxisAnchor? = nil,
@@ -80,17 +80,9 @@ extension UIView {
     }
 }
 
-/*
+
 extension UIViewController {
     static let hud = JGProgressHUD(style: .dark)
-
-    func configureGradientLayer() {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.systemPurple.cgColor, UIColor.systemPink.cgColor]
-        gradient.locations = [0, 1]
-        view.layer.addSublayer(gradient)
-        gradient.frame = view.frame
-    }
     
     func showLoader(_ show: Bool, withText text: String? = "Loading") {
         view.endEditing(true)
@@ -102,6 +94,15 @@ extension UIViewController {
             UIViewController.hud.dismiss()
         }
     }
+    
+    func showError(_ errorMessage: String) {
+        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+extension UIViewController{
     
     func configureNavigationBar(withTitle title: String, prefersLargeTitles: Bool) {
         let appearance = UINavigationBarAppearance()
@@ -121,10 +122,4 @@ extension UIViewController {
         navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
     }
     
-    func showError(_ errorMessage: String) {
-        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
 }
-*/
