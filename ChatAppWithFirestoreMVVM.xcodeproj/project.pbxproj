@@ -35,6 +35,7 @@
 		5ADD829827E7AEA000ED1D4B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD829727E7AEA000ED1D4B /* Model.swift */; };
 		5ADD829A27E7AEA800ED1D4B /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD829927E7AEA800ED1D4B /* Pattern.swift */; };
 		5ADD829C27E7AEDC00ED1D4B /* RegexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD829B27E7AEDC00ED1D4B /* RegexManager.swift */; };
+		5AE2071927EF49E300545454 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE2071827EF49E300545454 /* AuthService.swift */; };
 		6CFC7ADF2F42AD6B1914A6EE /* Pods_ChatAppWithFirestoreMVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2489E0B17D66E00B625C0B7 /* Pods_ChatAppWithFirestoreMVVM.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		5ADD829727E7AEA000ED1D4B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		5ADD829927E7AEA800ED1D4B /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
 		5ADD829B27E7AEDC00ED1D4B /* RegexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexManager.swift; sourceTree = "<group>"; };
+		5AE2071827EF49E300545454 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B2489E0B17D66E00B625C0B7 /* Pods_ChatAppWithFirestoreMVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChatAppWithFirestoreMVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B584EC4538EE40C561EB1024 /* Pods-ChatAppWithFirestoreMVVM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatAppWithFirestoreMVVM.release.xcconfig"; path = "Target Support Files/Pods-ChatAppWithFirestoreMVVM/Pods-ChatAppWithFirestoreMVVM.release.xcconfig"; sourceTree = "<group>"; };
 		C7341A1E72018F270EF6C342 /* Pods-ChatAppWithFirestoreMVVM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatAppWithFirestoreMVVM.debug.xcconfig"; path = "Target Support Files/Pods-ChatAppWithFirestoreMVVM/Pods-ChatAppWithFirestoreMVVM.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,7 +108,6 @@
 				C7341A1E72018F270EF6C342 /* Pods-ChatAppWithFirestoreMVVM.debug.xcconfig */,
 				B584EC4538EE40C561EB1024 /* Pods-ChatAppWithFirestoreMVVM.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -168,6 +169,7 @@
 		5A25897727E23659001B625B /* API */ = {
 			isa = PBXGroup;
 			children = (
+				5AE2071827EF49E300545454 /* AuthService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -392,6 +394,7 @@
 				5ABB627D27E4ABD200932166 /* InputContainerView.swift in Sources */,
 				5ADD829227E7AE8A00ED1D4B /* Concrete.swift in Sources */,
 				5ADD829A27E7AEA800ED1D4B /* Pattern.swift in Sources */,
+				5AE2071927EF49E300545454 /* AuthService.swift in Sources */,
 				5A4B385E27ECA9F90000FA7C /* BasicImageView.swift in Sources */,
 				5A4B385C27ECA2800000FA7C /* CustomTextButton.swift in Sources */,
 				5A25896227E2358A001B625B /* AppDelegate.swift in Sources */,
