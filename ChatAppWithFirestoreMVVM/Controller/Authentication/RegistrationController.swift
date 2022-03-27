@@ -62,6 +62,8 @@ class RegistrationController : UIViewController{
         super.viewDidLoad()
         configureUI()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // MARK: - Selectors
@@ -72,6 +74,18 @@ class RegistrationController : UIViewController{
         present(imagePickerController,animated: true,completion: nil)
     }
     
+    @objc func keyboardWillShow(){
+        if view.frame.origin.y == 0{
+            self.view.frame.origin.y -= 88
+        }
+    }
+    
+    @objc func keyboardWillHide(){
+        if view.frame.origin.y != 0{
+            view.frame.origin.y = 0
+        }
+    }
+    
     @objc func handleAuthentication(){
         let result = ComponentBuilder.shared.validate(componentSectionType: ComponentSectionType.registerSection.rawValue)
         if result{
@@ -80,38 +94,19 @@ class RegistrationController : UIViewController{
             viewModel.password = data[1]
             viewModel.fullName = data[2]
             viewModel.username = data[3]
-           //let registerViewModel : RegisterViewModel = RegisterViewModel(email: data[0], password: data[1],fullName: data[2],username: data[3])
-           // Send Request to API
-            guard let imageData = profileImage?.jpegData(compressionQuality: 0.4) else { return }
-            let filename = NSUUID().uuidString
-            let ref = Storage.storage().reference(withPath: "/profile_images/\(filename)")
-            ref.putData(imageData, metadata: nil) { meta, error in
+            let credentials = RegistrationCredentials(email: viewModel.email!, password: viewModel.password!, fullname: viewModel.fullName!, username: viewModel.username!, profileImage: profileImage!)
+            
+            showLoader(true,withText: "Signing Up")
+            AuthService.shared.createUserIn(credentials: credentials) { error in
                 if let error = error{
-                    print("DEBUG : Failed to upload image with error \(error.localizedDescription)")
+                    print("DEBUG : Failed to creating user with error \(error.localizedDescription)")
+                    self.showLoader(false)
                     return
                 }
-                ref.downloadURL { url, error in
-                    guard let profileImageUrl = url?.absoluteString else { return }
-                    
-                    Auth.auth().createUser(withEmail: self.viewModel.email!, password: self.viewModel.password!) { result, error in
-                        if let error = error{
-                            print("DEBUG : Failed to create user with error \(error.localizedDescription)")
-                            return
-                        }
-                        guard let uid = result?.user.uid else { return }
-                        let data = ["email": self.viewModel.email,"fullname": self.viewModel.fullName,"profileImageUrl": profileImageUrl,"uid":uid,"username": self.viewModel.username] as [String : Any]
-                        
-                        Firestore.firestore().collection("users").document(uid).setData(data){ error in
-                            if let error = error{
-                                print("DEBUG : Failed to creating user with error \(error.localizedDescription)")
-                                return
-                            }
-                            print("DEBUG: User created...")
-                        }
-                    }
-                }
+                //print("DEBUG: User created...")
+                self.showLoader(false)
+                self.dismiss(animated: true,completion: nil)
             }
-            
         }else{
             print("Not Authenticated")
         }
