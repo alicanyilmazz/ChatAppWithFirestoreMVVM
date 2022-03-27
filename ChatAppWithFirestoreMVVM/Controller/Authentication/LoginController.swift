@@ -5,12 +5,15 @@
 //  Created by alican on 16.03.2022.
 //
 
-import Foundation
 import UIKit
+import Firebase
+import JGProgressHUD
 
 class LoginController : UIViewController{
     
     // MARK: - Properties
+    
+    private var viewModel : LoginViewModel = LoginViewModel()
     
     private lazy var iconImage: BasicImageView = {
        let configuration = BasicImageViewConfiguration(imageName: "mans", tintColor: UIColor(red: 38/255, green: 42/255, blue: 52/255, alpha: 1))
@@ -56,10 +59,21 @@ class LoginController : UIViewController{
     @objc func handleAuthentication(){
         let result = ComponentBuilder.shared.validate(componentSectionType: ComponentSectionType.loginSection.rawValue)
         if result{
-           print("Authenticated")
+           showLoader(true,withText: "Logging in")
            let data = ComponentBuilder.shared.getData(componentSectionType: ComponentSectionType.loginSection.rawValue)
-           let loginViewModel : LoginViewModel = LoginViewModel(email: data[0], password: data[1])
-           // Send Request to API
+           viewModel.email = data[0]
+           viewModel.password = data[1]
+            
+           AuthService.shared.logUserIn(withEmail: viewModel.email!, password: viewModel.password!) { result, error in
+                if let error = error{
+                    print("DEBUG: Failed to log in with error \(error)")
+                    self.showLoader(false)
+                    return
+                }
+                
+               self.showLoader(false)
+               self.dismiss(animated: true,completion: nil)
+            }
         }else{
             print("Not Authenticated")
         }
