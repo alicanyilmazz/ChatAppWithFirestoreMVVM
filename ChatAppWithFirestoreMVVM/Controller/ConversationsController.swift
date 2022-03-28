@@ -15,18 +15,33 @@ class ConversationsController : UIViewController{
     
     private let tableView = UITableView()
     
+    private let newMessageButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.backgroundColor = .systemPurple
+        button.tintColor = .white
+        button.imageView?.setDimensions(height: 24, width: 24)
+        button.addTarget(self, action: #selector(showNewMessage), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        configureNavigationBar()
-        configureTableView()
         authenticateUser()
     }
     
     // MARK: - Selectors
     @objc func showProfile(){
         logOut()
+    }
+    
+    @objc func showNewMessage(){
+        let controller = NewMessageController()
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav,animated: true,completion: nil)
     }
     
     // MARK: - API
@@ -49,11 +64,13 @@ class ConversationsController : UIViewController{
     
     
     // MARK: - Helpers
+ 
     func configureUI(){
         view.backgroundColor = .white
-        
-        let image = UIImage(systemName: "person.circle.fill")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showProfile))
+        configureNavigationBar(withTitle: "Messages", prefersLargeTitles: true)
+        configureBarButtonItem()
+        configureTableView()
+        configureFloatingButton()
     }
     
     func configureTableView(){
@@ -67,22 +84,17 @@ class ConversationsController : UIViewController{
         view.addSubview(tableView)
         tableView.frame = view.frame
     }
+        
+    fileprivate func configureBarButtonItem() {
+        let image = UIImage(systemName: "person.circle.fill")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showProfile))
+    }
     
-    func configureNavigationBar(){
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.backgroundColor = .lightGray
-        
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Messages"
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.isTranslucent = true
-        //navigationController?.navigationBar.overrideUserInterfaceStyle = .dark
+    fileprivate func configureFloatingButton() {
+        view.addSubview(newMessageButton)
+        newMessageButton.setDimensions(height: 56, width: 56)
+        newMessageButton.layer.cornerRadius = 56 / 2
+        newMessageButton.anchor(bottom: view.bottomAnchor,right: view.rightAnchor,paddingBottom: 24,paddingRight: 24)
     }
     
     func presentLoginScreen(){
@@ -94,6 +106,9 @@ class ConversationsController : UIViewController{
         }
     }
 }
+
+
+// MARK: - UITableViewDataSource
 
 extension ConversationsController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,9 +122,11 @@ extension ConversationsController : UITableViewDataSource{
     }
 }
 
+// MARK: - UITableViewDelegate
 
 extension ConversationsController : UITableViewDelegate{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         print(indexPath.row)
     }
 }
