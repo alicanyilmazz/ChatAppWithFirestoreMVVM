@@ -103,7 +103,6 @@ class RegistrationController : UIViewController{
                     self.showLoader(false)
                     return
                 }
-                //print("DEBUG: User created...")
                 self.showLoader(false)
                 self.dismiss(animated: true,completion: nil)
             }
